@@ -2,6 +2,7 @@ use std::future::Future;
 use std::pin::Pin;
 use std::time::Duration;
 use tokio::time::sleep;
+
 // use std::sync::mpsc;
 
 //
@@ -27,10 +28,6 @@ fn send_request_2() -> impl Future<Output = String> {
         "Request 2 done, here is the data: ABC".to_string()
     }
 }
-
-
-
-
 
 //
 //
@@ -61,16 +58,31 @@ async fn async_variable_type_example() {
     println!("my_future_2: {}", &my_future_2.await);
 }
 
+//
+//
+//
+async fn task_sample() {
+    let mut task_list: Vec<tokio::task::JoinHandle<String>> = Vec::new();
 
+    for index in 1..10 {
+        task_list.push(tokio::task::spawn(async move {
+            println!("Task {} is running......", index);
+            sleep(Duration::from_secs(1)).await;
+            format!("Task {} is done.", index)
+        }))
+    }
 
-
-
-
-
-
-
-
-
+    for temp_task in task_list {
+        //
+        // After calling each `task::JoinHandle.await`, all of them (the spwaned
+        // tasks) will run concurrently in tokio runtime created threads.
+        //
+        // But `.await` result returns value in order!!!
+        //
+        let temp_result = temp_task.await.unwrap();
+        println!("{}", temp_result);
+    }
+}
 
 //
 //
@@ -79,8 +91,9 @@ async fn async_variable_type_example() {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!(">>> start.");
 
-    let _ = async_variable_type_example().await;
+    // let _ = async_variable_type_example().await;
 
+    let _ = task_sample().await;
 
     // let will_take_some_times = tokio::task::spawn(async move {
     //     sleep(Duration::from_secs(3)).await;
