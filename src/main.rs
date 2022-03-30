@@ -95,20 +95,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let _ = task_sample().await;
 
-    // let will_take_some_times = tokio::task::spawn(async move {
-    //     sleep(Duration::from_secs(3)).await;
-    //     "Async task done.".to_string()
-    // }).await.unwrap();
-
-    // println!("will_take_some_times: {:#?}", &will_take_some_times);
-
-    // let data = send_request().await;
-
-    // println!(">>> before done.");
-
-    // println!("data: {:#?}", &data);
-
-    // println!(">>> Done.");
-
     Ok(())
 }
