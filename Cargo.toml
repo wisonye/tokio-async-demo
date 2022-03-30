@@ -1,0 +1,19 @@
+[package]
+name = "tokio-async-demo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Full features
+# tokio = { version = "1", features = ["full"] }
+
+# Enables tokio::spawn, the basic (current thread) scheduler, and non-scheduler utilities.
+# tokio = { version = "1", features = ["rt"] }
+
+# Enables the heavier, multi-threaded, work-stealing scheduler.
+# Enables #[tokio::main] and #[tokio::test] macros.
+# Enables tokio::time types and allows the schedulers to enable the built in timer.
+tokio = { version = "1", features = [ "rt-multi-thread", "macros", "time" ] }
+
