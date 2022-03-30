@@ -28,13 +28,14 @@ fn send_request_2() -> impl Future<Output = String> {
     }
 }
 
-//
-//
-//
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!(">>> start.");
 
+
+
+
+//
+//
+//
+async fn async_variable_type_example() {
     //
     // Asyn block returns Future, return type is `impl Future<Output = String>`
     //
@@ -58,6 +59,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("my_future: {}", &my_future.await);
     println!("my_future_2: {}", &my_future_2.await);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    println!(">>> start.");
+
+    let _ = async_variable_type_example().await;
+
 
     // let will_take_some_times = tokio::task::spawn(async move {
     //     sleep(Duration::from_secs(3)).await;
